@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taboo - Senior Advisory Games</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">Back to Games</a>
+        
+        <div class="game-container">
+            <h1>Taboo</h1>
+            
+            <!-- Setup Screen -->
+            <div id="setupScreen" class="setup-screen">
+                <div class="instructions">
+                    <h2>How to Play</h2>
+                    <p>Each team has a timer that counts down. On their turn, they have to guess a word as their timer runs down. They can pass to get a new word. The team with the most points at the end wins.</p>
+                </div>
+                
+                <div class="options">
+                    <h2>Game Options</h2>
+                    <div class="option-group">
+                        <label>Number of Teams:</label>
+                        <select id="teamCount">
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label>Timer Length (seconds):</label>
+                        <select id="timerLength">
+                            <option value="30">30</option>
+                            <option value="60" selected>60</option>
+                            <option value="90">90</option>
+                            <option value="120">120</option>
+                        </select>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label>Vocabulary Size:</label>
+                        <select id="vocabSize">
+                            <option value="10">10 words</option>
+                            <option value="20" selected>20 words</option>
+                            <option value="30">30 words</option>
+                            <option value="50">50 words</option>
+                        </select>
+                    </div>
+                    
+                    <button id="startGame" class="btn btn-primary">Start Game</button>
+                </div>
+            </div>
+            
+            <!-- Game Screen -->
+            <div id="gameScreen" class="game-screen" style="display: none;">
+                <div class="current-word">
+                    <h2 id="currentWord">Word will appear here</h2>
+                </div>
+                
+                <div class="game-controls">
+                    <button id="passBtn" class="btn btn-secondary">Pass</button>
+                    <button id="correctBtn" class="btn btn-primary">Correct</button>
+                </div>
+                
+                <div class="teams">
+                    <div id="teamsContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tabooWords = [
+            { word: "PIZZA", taboo: ["ITALIAN", "CHEESE", "TOMATO", "DOUGH", "RESTAURANT"] },
+            { word: "ELEPHANT", taboo: ["BIG", "GRAY", "TRUNK", "AFRICA", "ANIMAL"] },
+            { word: "BIRTHDAY", taboo: ["CAKE", "CANDLES", "PARTY", "AGE", "CELEBRATE"] },
+            { word: "OCEAN", taboo: ["WATER", "BLUE", "WAVES", "FISH", "SALT"] },
+            { word: "MOUNTAIN", taboo: ["HIGH", "PEAK", "CLIMB", "SNOW", "TALL"] },
+            { word: "TELEPHONE", taboo: ["CALL", "RING", "PHONE", "TALK", "NUMBER"] },
+            { word: "GARDEN", taboo: ["FLOWERS", "PLANTS", "GROW", "OUTSIDE", "YARD"] },
+            { word: "MAGIC", taboo: ["TRICK", "WAND", "ABRACADABRA", "MAGICIAN", "SPELL"] },
+            { word: "TREASURE", taboo: ["GOLD", "CHEST", "PIRATE", "VALUABLE", "HIDDEN"] },
+            { word: "ADVENTURE", taboo: ["EXCITING", "JOURNEY", "EXPLORE", "RISK", "THRILL"] },
+            { word: "RAINBOW", taboo: ["COLORS", "RAIN", "SKY", "SEVEN", "ARCH"] },
+            { word: "BUTTERFLY", taboo: ["WINGS", "FLY", "INSECT", "CATERPILLAR", "BEAUTIFUL"] },
+            { word: "LIBRARY", taboo: ["BOOKS", "READ", "QUIET", "STUDY", "SHELVES"] },
+            { word: "FIREWORKS", taboo: ["EXPLODE", "NIGHT", "COLORS", "CELEBRATION", "SKY"] },
+            { word: "SANDWICH", taboo: ["BREAD", "MEAT", "LUNCH", "EAT", "FILLING"] },
+            { word: "TREASURE", taboo: ["GOLD", "CHEST", "PIRATE", "VALUABLE", "HIDDEN"] },
+            { word: "BALLOON", taboo: ["AIR", "FLOAT", "PARTY", "ROUND", "POP"] },
+            { word: "CANDLE", taboo: ["FIRE", "WAX", "LIGHT", "BIRTHDAY", "FLAME"] },
+            { word: "PUZZLE", taboo: ["PIECES", "SOLVE", "GAME", "FIT", "CHALLENGE"] },
+            { word: "RAINCOAT", taboo: ["WATER", "JACKET", "RAIN", "WEAR", "PROTECT"] }
+        ];
+
+        let gameState = {
+            teams: [],
+            currentTeam: 0,
+            currentWord: null,
+            timer: null,
+            timeLeft: 0,
+            gameWords: []
+        };
+
+        function startGame() {
+            const teamCount = parseInt(document.getElementById('teamCount').value);
+            const timerLength = parseInt(document.getElementById('timerLength').value);
+            const vocabSize = parseInt(document.getElementById('vocabSize').value);
+            
+            // Initialize teams
+            gameState.teams = [];
+            for (let i = 0; i < teamCount; i++) {
+                gameState.teams.push({
+                    name: `Team ${i + 1}`,
+                    score: 0,
+                    active: i === 0
+                });
+            }
+            
+            // Select random words
+            gameState.gameWords = [...tabooWords].sort(() => Math.random() - 0.5).slice(0, vocabSize);
+            gameState.currentTeam = 0;
+            gameState.timeLeft = timerLength;
+            
+            // Show game screen
+            document.getElementById('setupScreen').style.display = 'none';
+            document.getElementById('gameScreen').style.display = 'block';
+            
+            // Render teams
+            renderTeams();
+            
+            // Start first turn
+            nextWord();
+            startTimer();
+        }
+
+        function renderTeams() {
+            const container = document.getElementById('teamsContainer');
+            container.innerHTML = '';
+            
+            gameState.teams.forEach((team, index) => {
+                const teamDiv = document.createElement('div');
+                teamDiv.className = `team ${team.active ? 'active' : ''}`;
+                teamDiv.innerHTML = `
+                    <h3>${team.name}</h3>
+                    <div class="score">Score: ${team.score}</div>
+                    <div class="timer" id="timer-${index}">${gameState.timeLeft}</div>
+                `;
+                container.appendChild(teamDiv);
+            });
+        }
+
+        function nextWord() {
+            if (gameState.gameWords.length === 0) {
+                endGame();
+                return;
+            }
+            
+            gameState.currentWord = gameState.gameWords.pop();
+            document.getElementById('currentWord').textContent = gameState.currentWord.word;
+        }
+
+        function startTimer() {
+            gameState.timer = setInterval(() => {
+                gameState.timeLeft--;
+                document.getElementById(`timer-${gameState.currentTeam}`).textContent = gameState.timeLeft;
+                
+                if (gameState.timeLeft <= 0) {
+                    endTurn();
+                }
+            }, 1000);
+        }
+
+        function endTurn() {
+            clearInterval(gameState.timer);
+            
+            // Switch to next team
+            gameState.teams[gameState.currentTeam].active = false;
+            gameState.currentTeam = (gameState.currentTeam + 1) % gameState.teams.length;
+            gameState.teams[gameState.currentTeam].active = true;
+            
+            // Reset timer
+            const timerLength = parseInt(document.getElementById('timerLength').value);
+            gameState.timeLeft = timerLength;
+            
+            // Render teams and start next turn
+            renderTeams();
+            nextWord();
+            startTimer();
+        }
+
+        function passWord() {
+            nextWord();
+        }
+
+        function correctWord() {
+            gameState.teams[gameState.currentTeam].score++;
+            renderTeams();
+            nextWord();
+        }
+
+        function endGame() {
+            clearInterval(gameState.timer);
+            alert('Game Over! Final Scores:\n' + 
+                  gameState.teams.map(team => `${team.name}: ${team.score}`).join('\n'));
+        }
+
+        // Event listeners
+        document.getElementById('startGame').addEventListener('click', startGame);
+        document.getElementById('passBtn').addEventListener('click', passWord);
+        document.getElementById('correctBtn').addEventListener('click', correctWord);
+    </script>
+</body>
+</html>

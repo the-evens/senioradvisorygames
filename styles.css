@@ -1,0 +1,319 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: white;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+}
+
+.container {
+    text-align: center;
+    max-width: 800px;
+    padding: 2rem;
+    background: white;
+    border: 1px solid #000;
+}
+
+.main-title {
+    font-size: 6rem;
+    font-weight: 300;
+    color: #000;
+    margin-bottom: 3rem;
+    letter-spacing: -2px;
+}
+
+.games-list h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #000;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.games-list ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.game-link {
+    display: inline-block;
+    color: #000;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 400;
+    padding: 0.5rem 0;
+}
+
+.game-link:hover::before {
+    content: "< ";
+}
+
+.game-link:hover::after {
+    content: " >";
+}
+
+/* Taboo game styles */
+.game-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.setup-screen {
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+}
+
+.instructions {
+    flex: 1;
+}
+
+.instructions h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    color: #000;
+}
+
+.instructions p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #000;
+}
+
+.options {
+    flex: 1;
+}
+
+.options h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    color: #000;
+}
+
+.option-group {
+    margin-bottom: 1.5rem;
+}
+
+.option-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+    color: #000;
+}
+
+.option-group select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #000;
+    background: white;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.game-screen {
+    text-align: center;
+}
+
+.current-word {
+    margin: 3rem 0;
+}
+
+.current-word h2 {
+    font-size: 4rem;
+    font-weight: 300;
+    color: #000;
+    margin: 0;
+    letter-spacing: -1px;
+}
+
+.game-controls {
+    margin: 2rem 0;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.teams {
+    margin-top: 3rem;
+}
+
+#teamsContainer {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.team {
+    padding: 1rem;
+    border: 1px solid #000;
+    min-width: 120px;
+    text-align: center;
+}
+
+.team.active {
+    background: #000;
+    color: white;
+}
+
+.team h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.team .score {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.team .timer {
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+.btn {
+    padding: 0.8rem 2rem;
+    border: 1px solid #000;
+    background: white;
+    color: #000;
+    font-size: 1rem;
+    font-weight: 400;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.btn-primary {
+    background: #000;
+    color: white;
+}
+
+.btn:hover {
+    background: #000;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: white;
+    color: #000;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 1rem 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.word {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+.taboo-words {
+    font-size: 1.2rem;
+    color: #e74c3c;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.taboo-words strong {
+    font-weight: 600;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.btn {
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #ecf0f1;
+    color: #2c3e50;
+}
+
+.btn-secondary:hover {
+    background: #d5dbdb;
+    transform: translateY(-1px);
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 2rem;
+    color: #000;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.back-link:hover::before {
+    content: "< ";
+}
+
+.back-link:hover::after {
+    content: " >";
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 2.5rem;
+    }
+    
+    .container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .word {
+        font-size: 2rem;
+    }
+    
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+}
