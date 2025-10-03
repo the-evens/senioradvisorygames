@@ -368,7 +368,8 @@ body {
     50% { transform: scale(1.05); }
 }
 
-.game-controls {
+/* Taboo game controls */
+.taboo .game-controls {
     margin: 2rem 0;
     display: flex;
     gap: 1rem;
@@ -612,7 +613,8 @@ body {
 .wheel-segment:nth-child(7) { transform: rotate(270deg); }
 .wheel-segment:nth-child(8) { transform: rotate(315deg); }
 
-.game-controls {
+/* Wheel of Fortune specific game controls */
+.wheel .game-controls {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
