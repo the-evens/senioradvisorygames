@@ -368,8 +368,7 @@ body {
     50% { transform: scale(1.05); }
 }
 
-/* Taboo game controls */
-.taboo .game-controls {
+.game-controls {
     margin: 2rem 0;
     display: flex;
     gap: 1rem;
@@ -537,116 +536,6 @@ body {
 
 #finalScores div {
     margin-bottom: 0.5rem;
-}
-
-/* Wheel of Fortune styles */
-.puzzle-display {
-    margin: 2rem 0;
-    padding: 2rem;
-    border: 2px solid #000;
-    background: white;
-}
-
-.puzzle-display h2 {
-    font-size: 2rem;
-    font-weight: 300;
-    color: #000;
-    margin: 0;
-    letter-spacing: 0.2em;
-    font-family: 'Courier New', monospace;
-    line-height: 1.4;
-}
-
-.game-layout {
-    display: flex;
-    gap: 3rem;
-    align-items: flex-start;
-}
-
-.left-column {
-    flex: 1;
-}
-
-.right-column {
-    flex: 1;
-}
-
-.wheel-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 2rem 0;
-}
-
-.wheel {
-    width: 300px;
-    height: 300px;
-    border: 4px solid #000;
-    border-radius: 50%;
-    position: relative;
-    margin-bottom: 2rem;
-    transition: transform 2s ease-out;
-    overflow: hidden;
-}
-
-.wheel-segment {
-    position: absolute;
-    width: 50%;
-    height: 50%;
-    background: white;
-    border: 2px solid #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 1rem;
-    transform-origin: 100% 100%;
-    clip-path: polygon(0 0, 100% 0, 50% 100%);
-}
-
-.wheel-segment:nth-child(1) { transform: rotate(0deg); }
-.wheel-segment:nth-child(2) { transform: rotate(45deg); }
-.wheel-segment:nth-child(3) { transform: rotate(90deg); }
-.wheel-segment:nth-child(4) { transform: rotate(135deg); }
-.wheel-segment:nth-child(5) { transform: rotate(180deg); }
-.wheel-segment:nth-child(6) { transform: rotate(225deg); }
-.wheel-segment:nth-child(7) { transform: rotate(270deg); }
-.wheel-segment:nth-child(8) { transform: rotate(315deg); }
-
-/* Wheel of Fortune specific game controls */
-.wheel .game-controls {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin: 2rem 0;
-    align-items: flex-start;
-}
-
-.letter-guess, .solve-puzzle {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
-
-.letter-guess input, .solve-puzzle input {
-    padding: 0.8rem 1rem;
-    border: 2px solid #000;
-    background: white;
-    font-size: 1rem;
-    font-family: inherit;
-    width: 200px;
-}
-
-.letter-guess input:focus, .solve-puzzle input:focus {
-    outline: none;
-    border-color: #000;
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
-}
-
-.team .money {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #000;
 }
 
 
