@@ -11,7 +11,7 @@
         <a href="index.html" class="back-link">Back to Games</a>
         
         <div class="game-container">
-            <h1>Taboo</h1>
+            <h1>Taboo/Heads Up</h1>
             
             <!-- Setup Screen -->
             <div id="setupScreen" class="setup-screen">
@@ -35,6 +35,7 @@
                     <div class="option-group">
                         <label>Timer Length (seconds):</label>
                         <select id="timerLength">
+                            <option value="5">5</option>
                             <option value="30">30</option>
                             <option value="60" selected>60</option>
                             <option value="90">90</option>
@@ -42,15 +43,6 @@
                         </select>
                     </div>
                     
-                    <div class="option-group">
-                        <label>Vocabulary Size:</label>
-                        <select id="vocabSize">
-                            <option value="10">10 words</option>
-                            <option value="20" selected>20 words</option>
-                            <option value="30">30 words</option>
-                            <option value="50">50 words</option>
-                        </select>
-                    </div>
                     
                     <button id="startGame" class="btn btn-primary">Start Game</button>
                 </div>
@@ -71,149 +63,223 @@
                     <div id="teamsContainer"></div>
                 </div>
             </div>
+            
         </div>
     </div>
 
     <script>
-        const tabooWords = [
-            { word: "PIZZA", taboo: ["ITALIAN", "CHEESE", "TOMATO", "DOUGH", "RESTAURANT"] },
-            { word: "ELEPHANT", taboo: ["BIG", "GRAY", "TRUNK", "AFRICA", "ANIMAL"] },
-            { word: "BIRTHDAY", taboo: ["CAKE", "CANDLES", "PARTY", "AGE", "CELEBRATE"] },
-            { word: "OCEAN", taboo: ["WATER", "BLUE", "WAVES", "FISH", "SALT"] },
-            { word: "MOUNTAIN", taboo: ["HIGH", "PEAK", "CLIMB", "SNOW", "TALL"] },
-            { word: "TELEPHONE", taboo: ["CALL", "RING", "PHONE", "TALK", "NUMBER"] },
-            { word: "GARDEN", taboo: ["FLOWERS", "PLANTS", "GROW", "OUTSIDE", "YARD"] },
-            { word: "MAGIC", taboo: ["TRICK", "WAND", "ABRACADABRA", "MAGICIAN", "SPELL"] },
-            { word: "TREASURE", taboo: ["GOLD", "CHEST", "PIRATE", "VALUABLE", "HIDDEN"] },
-            { word: "ADVENTURE", taboo: ["EXCITING", "JOURNEY", "EXPLORE", "RISK", "THRILL"] },
-            { word: "RAINBOW", taboo: ["COLORS", "RAIN", "SKY", "SEVEN", "ARCH"] },
-            { word: "BUTTERFLY", taboo: ["WINGS", "FLY", "INSECT", "CATERPILLAR", "BEAUTIFUL"] },
-            { word: "LIBRARY", taboo: ["BOOKS", "READ", "QUIET", "STUDY", "SHELVES"] },
-            { word: "FIREWORKS", taboo: ["EXPLODE", "NIGHT", "COLORS", "CELEBRATION", "SKY"] },
-            { word: "SANDWICH", taboo: ["BREAD", "MEAT", "LUNCH", "EAT", "FILLING"] },
-            { word: "TREASURE", taboo: ["GOLD", "CHEST", "PIRATE", "VALUABLE", "HIDDEN"] },
-            { word: "BALLOON", taboo: ["AIR", "FLOAT", "PARTY", "ROUND", "POP"] },
-            { word: "CANDLE", taboo: ["FIRE", "WAX", "LIGHT", "BIRTHDAY", "FLAME"] },
-            { word: "PUZZLE", taboo: ["PIECES", "SOLVE", "GAME", "FIT", "CHALLENGE"] },
-            { word: "RAINCOAT", taboo: ["WATER", "JACKET", "RAIN", "WEAR", "PROTECT"] }
+        const words = [
+            "PIZZA", "ELEPHANT", "BIRTHDAY", "OCEAN", "MOUNTAIN", "TELEPHONE", 
+            "GARDEN", "MAGIC", "TREASURE", "ADVENTURE", "RAINBOW", "BUTTERFLY", 
+            "LIBRARY", "FIREWORKS", "SANDWICH", "BALLOON", "CANDLE", "PUZZLE", 
+            "RAINCOAT", "COMPUTER", "KITCHEN", "SUNSHINE", "WINDOW", "BASKETBALL",
+            "CHOCOLATE", "DINOSAUR", "ELEVATOR", "FIREFIGHTER", "GUITAR", "HAMBURGER",
+            "ICE CREAM", "JUNGLE", "KANGAROO", "LADDER", "MIRROR", "NEWSPAPER",
+            "OCTOPUS", "PENGUIN", "QUEEN", "ROBOT", "SUNGLASSES", "TELESCOPE",
+            "UMBRELLA", "VACUUM", "WASHING MACHINE", "X-RAY", "YOGURT", "ZEBRA",
+            "AIRPLANE", "BICYCLE", "CAMERA", "DENTIST", "ELEPHANT", "FISHING",
+            "GOLF", "HOSPITAL", "ISLAND", "JEWELRY", "KITE", "LIGHTHOUSE",
+            "MUSIC", "NECKLACE", "ORANGE", "PARK", "QUILT", "RIVER",
+            "SNAKE", "TIGER", "UNICORN", "VIOLIN", "WATERFALL", "XENON",
+            "YACHT", "ZIPPER", "APPLE", "BANANA", "CHERRY", "DONUT",
+            "EGG", "FRENCH FRIES", "GRAPE", "HONEY", "ICECREAM", "JELLY",
+            "KETCHUP", "LEMON", "MILK", "NUTS", "OLIVE", "PICKLE",
+            "QUINOA", "RICE", "SALT", "TOMATO", "VANILLA", "WATER",
+            "XIAOLONGBAO", "YOGURT", "ZUCCHINI", "ANCHOR", "BRIDGE", "CASTLE",
+            "DOOR", "ELEVATOR", "FENCE", "GATE", "HOUSE", "IGLOO",
+            "JET", "KAYAK", "LADDER", "MOTORCYCLE", "NEST", "OAR",
+            "PARKING METER", "QUAY", "RAMP", "SIDEWALK", "TRAIN", "UNDERPASS",
+            "VAN", "WALL", "X-RAY MACHINE", "YARD", "ZIPLINE", "ALARM CLOCK",
+            "BED", "CHAIR", "DESK", "ENVELOPE", "FOLDER", "GLUE",
+            "HIGHLIGHTER", "INK", "JOURNAL", "KEYBOARD", "LAMP", "MARKER",
+            "NOTEBOOK", "OFFICE", "PAPERCLIP", "QUILL", "RULER", "STAPLER",
+            "TAPE", "UNDERLINE", "VIBRATOR", "WALLET", "XEROX", "YELLOW PAGES",
+            "ZIPPER", "ARTIST", "BANKER", "CHEF", "DENTIST", "ENGINEER",
+            "FARMER", "GUIDE", "HUNTER", "INVENTOR", "JUDGE", "KEEPER",
+            "LAWYER", "MECHANIC", "NURSE", "OPTICIAN", "PAINTER", "QUARTERBACK",
+            "RANGER", "SAILOR", "TEACHER", "UNDERTAKER", "VETERINARIAN", "WAITER",
+            "XENOBIOLOGIST", "YOGI", "ZOOKEEPER", "ANT", "BEAR", "CAT",
+            "DOG", "EAGLE", "FROG", "GOAT", "HORSE", "IGUANA",
+            "JELLYFISH", "KOALA", "LION", "MONKEY", "NEWT", "OWL",
+            "PANDA", "QUAIL", "RABBIT", "SHEEP", "TURTLE", "URCHIN",
+            "VULTURE", "WOLF", "XENOPS", "YAK", "ZEBRA", "ANGEL",
+            "BABY", "CHILD", "DAD", "ELDER", "FRIEND", "GRANDPA",
+            "HUSBAND", "INFANT", "JUDGE", "KID", "LADY", "MOM",
+            "NEIGHBOR", "OFFICER", "PARENT", "QUEEN", "RULER", "SISTER",
+            "TEENAGER", "UNCLE", "VOTER", "WOMAN", "XENOPHOBE", "YOUTH",
+            "ZOMBIE", "ANGRY", "BORED", "CRAZY", "DIZZY", "EXCITED",
+            "FUNNY", "GRUMPY", "HAPPY", "IRRITATED", "JOYFUL", "KIND",
+            "LOVING", "MAD", "NERVOUS", "OPTIMISTIC", "PROUD", "QUIET",
+            "RESTLESS", "SAD", "TIRED", "UPSET", "VIVACIOUS", "WILD",
+            "XENIAL", "YOUTHFUL", "ZANY", "ARROW", "BOW", "CROWN",
+            "DIAMOND", "EMERALD", "FIRE", "GOLD", "HELMET", "IRON",
+            "JEWEL", "KEY", "LANCE", "MACE", "NECKLACE", "ORB",
+            "PEARL", "QUIVER", "RING", "SWORD", "TIARA", "UMBRELLA",
+            "VASE", "WAND", "XENON", "YOKE", "ZIRCON", "AUTUMN",
+            "BREEZE", "CLOUD", "DROPLET", "EARTH", "FOG", "GUST",
+            "HAIL", "ICE", "JETSTREAM", "KITE", "LIGHTNING", "MIST",
+            "NEBULA", "OZONE", "PRECIPITATION", "QUAKE", "RAIN", "SNOW",
+            "THUNDER", "UMBRELLA", "VAPOR", "WIND", "XENON", "YEAR",
+            "ZENITH", "ABACUS", "BALANCE", "CALCULATOR", "DIVIDER", "ERASER",
+            "FRACTION", "GEOMETRY", "HYPOTENUSE", "INTEGER", "JOURNAL", "KILOMETER",
+            "LOGARITHM", "MULTIPLICATION", "NUMERATOR", "OPERATION", "PERCENTAGE", "QUOTIENT",
+            "RADIUS", "SUBTRACTION", "TRIANGLE", "UNIT", "VARIABLE", "WHOLE",
+            "X-AXIS", "Y-AXIS", "ZERO", "ACROBAT", "BALLERINA", "CLOWN",
+            "DANCER", "ENTERTAINER", "FIRE EATER", "GYMNAST", "HOST", "ILLUSIONIST",
+            "JUGGLER", "KARAOKE", "LIFEGUARD", "MAGICIAN", "NARRATOR", "ORATOR",
+            "PERFORMER", "QUARTERBACK", "RINGMASTER", "SINGER", "TUMBLER", "USHER",
+            "VOCALIST", "WRESTLER", "XENOPHILE", "YODELER", "ZANZIBAR"
         ];
 
-        let gameState = {
+        let game = {
             teams: [],
             currentTeam: 0,
-            currentWord: null,
-            timer: null,
-            timeLeft: 0,
+            timers: [],
             gameWords: []
         };
 
         function startGame() {
             const teamCount = parseInt(document.getElementById('teamCount').value);
             const timerLength = parseInt(document.getElementById('timerLength').value);
-            const vocabSize = parseInt(document.getElementById('vocabSize').value);
             
-            // Initialize teams
-            gameState.teams = [];
+            game.teams = [];
+            game.timers = [];
             for (let i = 0; i < teamCount; i++) {
-                gameState.teams.push({
-                    name: `Team ${i + 1}`,
-                    score: 0,
-                    active: i === 0
+                game.teams.push({ 
+                    name: `Team ${i + 1}`, 
+                    score: 0, 
+                    active: i === 0,
+                    timeLeft: timerLength,
+                    finished: false
                 });
+                game.timers.push(null);
             }
             
-            // Select random words
-            gameState.gameWords = [...tabooWords].sort(() => Math.random() - 0.5).slice(0, vocabSize);
-            gameState.currentTeam = 0;
-            gameState.timeLeft = timerLength;
+            game.gameWords = [...words].sort(() => Math.random() - 0.5);
+            game.currentTeam = 0;
             
-            // Show game screen
             document.getElementById('setupScreen').style.display = 'none';
             document.getElementById('gameScreen').style.display = 'block';
             
-            // Render teams
             renderTeams();
-            
-            // Start first turn
             nextWord();
-            startTimer();
+            startAllTimers();
         }
 
         function renderTeams() {
             const container = document.getElementById('teamsContainer');
             container.innerHTML = '';
             
-            gameState.teams.forEach((team, index) => {
-                const teamDiv = document.createElement('div');
-                teamDiv.className = `team ${team.active ? 'active' : ''}`;
-                teamDiv.innerHTML = `
+            game.teams.forEach((team, index) => {
+                const div = document.createElement('div');
+                let className = 'team';
+                if (team.winner) className += ' winner';
+                else if (team.finished) className += ' finished';
+                else if (team.active) className += ' active';
+                
+                div.className = className;
+                div.innerHTML = `
                     <h3>${team.name}</h3>
                     <div class="score">Score: ${team.score}</div>
-                    <div class="timer" id="timer-${index}">${gameState.timeLeft}</div>
+                    <div class="timer" id="timer-${index}">${team.timeLeft}</div>
                 `;
-                container.appendChild(teamDiv);
+                container.appendChild(div);
             });
         }
 
         function nextWord() {
-            if (gameState.gameWords.length === 0) {
-                endGame();
-                return;
+            if (game.gameWords.length === 0) {
+                // Reshuffle words if we run out
+                game.gameWords = [...words].sort(() => Math.random() - 0.5);
+            }
+            document.getElementById('currentWord').textContent = game.gameWords.pop();
+        }
+
+        function startAllTimers() {
+            // Only start the active team's timer
+            startCurrentTeamTimer();
+        }
+
+        function startCurrentTeamTimer() {
+            const currentTeam = game.teams[game.currentTeam];
+            if (!currentTeam.finished) {
+                game.timers[game.currentTeam] = setInterval(() => {
+                    currentTeam.timeLeft--;
+                    document.getElementById(`timer-${game.currentTeam}`).textContent = currentTeam.timeLeft;
+                    
+                    if (currentTeam.timeLeft <= 0) {
+                        currentTeam.finished = true;
+                        clearInterval(game.timers[game.currentTeam]);
+                        game.timers[game.currentTeam] = null;
+                        
+                        // Check if all teams are finished
+                        if (game.teams.every(t => t.finished)) {
+                            endGame();
+                            return;
+                        }
+                        
+                        // Switch to next active team
+                        switchToNextActiveTeam();
+                    }
+                }, 1000);
+            }
+        }
+
+        function switchToNextActiveTeam() {
+            // Clear current team's timer
+            if (game.timers[game.currentTeam]) {
+                clearInterval(game.timers[game.currentTeam]);
+                game.timers[game.currentTeam] = null;
             }
             
-            gameState.currentWord = gameState.gameWords.pop();
-            document.getElementById('currentWord').textContent = gameState.currentWord.word;
-        }
-
-        function startTimer() {
-            gameState.timer = setInterval(() => {
-                gameState.timeLeft--;
-                document.getElementById(`timer-${gameState.currentTeam}`).textContent = gameState.timeLeft;
-                
-                if (gameState.timeLeft <= 0) {
-                    endTurn();
-                }
-            }, 1000);
-        }
-
-        function endTurn() {
-            clearInterval(gameState.timer);
+            game.teams[game.currentTeam].active = false;
             
-            // Switch to next team
-            gameState.teams[gameState.currentTeam].active = false;
-            gameState.currentTeam = (gameState.currentTeam + 1) % gameState.teams.length;
-            gameState.teams[gameState.currentTeam].active = true;
+            // Find next active team
+            let nextTeam = (game.currentTeam + 1) % game.teams.length;
+            while (game.teams[nextTeam].finished && nextTeam !== game.currentTeam) {
+                nextTeam = (nextTeam + 1) % game.teams.length;
+            }
             
-            // Reset timer
-            const timerLength = parseInt(document.getElementById('timerLength').value);
-            gameState.timeLeft = timerLength;
-            
-            // Render teams and start next turn
-            renderTeams();
-            nextWord();
-            startTimer();
+            if (!game.teams[nextTeam].finished) {
+                game.currentTeam = nextTeam;
+                game.teams[game.currentTeam].active = true;
+                renderTeams();
+                nextWord();
+                startCurrentTeamTimer();
+            }
         }
 
-        function passWord() {
+        function passWord() { nextWord(); }
+        function correctWord() { 
+            game.teams[game.currentTeam].score++; 
+            renderTeams(); 
             nextWord();
-        }
-
-        function correctWord() {
-            gameState.teams[gameState.currentTeam].score++;
-            renderTeams();
-            nextWord();
+            switchToNextActiveTeam();
         }
 
         function endGame() {
-            clearInterval(gameState.timer);
-            alert('Game Over! Final Scores:\n' + 
-                  gameState.teams.map(team => `${team.name}: ${team.score}`).join('\n'));
+            // Clear all timers
+            game.timers.forEach(timer => {
+                if (timer) clearInterval(timer);
+            });
+            
+            // Find highest score
+            const highestScore = Math.max(...game.teams.map(team => team.score));
+            
+            // Highlight all teams with the highest score (winners/tied)
+            game.teams.forEach((team, index) => {
+                if (team.score === highestScore) {
+                    game.teams[index].winner = true;
+                }
+            });
+            
+            // Re-render teams to show winners in green
+            renderTeams();
         }
 
-        // Event listeners
-        document.getElementById('startGame').addEventListener('click', startGame);
-        document.getElementById('passBtn').addEventListener('click', passWord);
-        document.getElementById('correctBtn').addEventListener('click', correctWord);
+        document.getElementById('startGame').onclick = startGame;
+        document.getElementById('passBtn').onclick = passWord;
+        document.getElementById('correctBtn').onclick = correctWord;
     </script>
 </body>
 </html>

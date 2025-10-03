@@ -13,6 +13,197 @@ body {
     align-items: center;
     justify-content: center;
     color: #000;
+    position: relative;
+    overflow: hidden;
+}
+
+.particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    background: #000;
+    border-radius: 50%;
+    animation: float 20s infinite linear;
+}
+
+/* Different particle sizes and shapes */
+.particle:nth-child(1) { 
+    left: 5%; 
+    width: 2px; 
+    height: 2px; 
+    animation-delay: 0s; 
+    animation-duration: 12s; 
+}
+.particle:nth-child(2) { 
+    left: 15%; 
+    width: 4px; 
+    height: 4px; 
+    animation-delay: 1s; 
+    animation-duration: 18s; 
+}
+.particle:nth-child(3) { 
+    left: 25%; 
+    width: 3px; 
+    height: 3px; 
+    animation-delay: 2s; 
+    animation-duration: 15s; 
+}
+.particle:nth-child(4) { 
+    left: 35%; 
+    width: 5px; 
+    height: 5px; 
+    animation-delay: 3s; 
+    animation-duration: 22s; 
+}
+.particle:nth-child(5) { 
+    left: 45%; 
+    width: 2px; 
+    height: 2px; 
+    animation-delay: 4s; 
+    animation-duration: 16s; 
+}
+.particle:nth-child(6) { 
+    left: 55%; 
+    width: 4px; 
+    height: 4px; 
+    animation-delay: 5s; 
+    animation-duration: 20s; 
+}
+.particle:nth-child(7) { 
+    left: 65%; 
+    width: 3px; 
+    height: 3px; 
+    animation-delay: 6s; 
+    animation-duration: 14s; 
+}
+.particle:nth-child(8) { 
+    left: 75%; 
+    width: 6px; 
+    height: 6px; 
+    animation-delay: 7s; 
+    animation-duration: 25s; 
+}
+.particle:nth-child(9) { 
+    left: 85%; 
+    width: 2px; 
+    height: 2px; 
+    animation-delay: 8s; 
+    animation-duration: 17s; 
+}
+.particle:nth-child(10) { 
+    left: 95%; 
+    width: 4px; 
+    height: 4px; 
+    animation-delay: 9s; 
+    animation-duration: 19s; 
+}
+.particle:nth-child(11) { 
+    left: 8%; 
+    width: 3px; 
+    height: 3px; 
+    animation-delay: 10s; 
+    animation-duration: 21s; 
+}
+.particle:nth-child(12) { 
+    left: 18%; 
+    width: 5px; 
+    height: 5px; 
+    animation-delay: 11s; 
+    animation-duration: 13s; 
+}
+.particle:nth-child(13) { 
+    left: 28%; 
+    width: 2px; 
+    height: 2px; 
+    animation-delay: 12s; 
+    animation-duration: 18s; 
+}
+.particle:nth-child(14) { 
+    left: 38%; 
+    width: 4px; 
+    height: 4px; 
+    animation-delay: 13s; 
+    animation-duration: 16s; 
+}
+.particle:nth-child(15) { 
+    left: 48%; 
+    width: 3px; 
+    height: 3px; 
+    animation-delay: 14s; 
+    animation-duration: 23s; 
+}
+.particle:nth-child(16) { 
+    left: 58%; 
+    width: 6px; 
+    height: 6px; 
+    animation-delay: 15s; 
+    animation-duration: 15s; 
+}
+.particle:nth-child(17) { 
+    left: 68%; 
+    width: 2px; 
+    height: 2px; 
+    animation-delay: 16s; 
+    animation-duration: 20s; 
+}
+.particle:nth-child(18) { 
+    left: 78%; 
+    width: 4px; 
+    height: 4px; 
+    animation-delay: 17s; 
+    animation-duration: 17s; 
+}
+.particle:nth-child(19) { 
+    left: 88%; 
+    width: 3px; 
+    height: 3px; 
+    animation-delay: 18s; 
+    animation-duration: 24s; 
+}
+.particle:nth-child(20) { 
+    left: 98%; 
+    width: 5px; 
+    height: 5px; 
+    animation-delay: 19s; 
+    animation-duration: 14s; 
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) translateX(0px) rotate(0deg) scale(0.5);
+        opacity: 0;
+    }
+    5% {
+        opacity: 0.8;
+        transform: translateY(90vh) translateX(10px) rotate(45deg) scale(0.7);
+    }
+    15% {
+        opacity: 1;
+        transform: translateY(70vh) translateX(-5px) rotate(90deg) scale(1);
+    }
+    50% {
+        transform: translateY(30vh) translateX(15px) rotate(180deg) scale(1.1);
+    }
+    85% {
+        opacity: 1;
+        transform: translateY(10vh) translateX(-10px) rotate(270deg) scale(0.9);
+    }
+    95% {
+        opacity: 0.6;
+        transform: translateY(-20px) translateX(5px) rotate(315deg) scale(0.6);
+    }
+    100% {
+        transform: translateY(-100px) translateX(0px) rotate(360deg) scale(0.3);
+        opacity: 0;
+    }
 }
 
 .container {
@@ -21,6 +212,9 @@ body {
     padding: 2rem;
     background: white;
     border: 1px solid #000;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .main-title {
@@ -72,6 +266,13 @@ body {
     padding: 2rem;
 }
 
+.game-container h1 {
+    margin-bottom: 3rem;
+    font-size: 3rem;
+    font-weight: 300;
+    color: #000;
+}
+
 .setup-screen {
     display: flex;
     gap: 3rem;
@@ -119,11 +320,30 @@ body {
 
 .option-group select {
     width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #000;
+    padding: 0.8rem 1rem;
+    border: 2px solid #000;
     background: white;
     font-size: 1rem;
     font-family: inherit;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1rem;
+    padding-right: 2.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.option-group select:hover {
+    border-color: #333;
+    box-shadow: 0 0 0 1px #333;
+}
+
+.option-group select:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
 .game-screen {
@@ -140,6 +360,12 @@ body {
     color: #000;
     margin: 0;
     letter-spacing: -1px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
 }
 
 .game-controls {
@@ -162,14 +388,59 @@ body {
 
 .team {
     padding: 1rem;
-    border: 1px solid #000;
+    border: 2px solid #000;
     min-width: 120px;
     text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.team::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.team:hover::before {
+    left: 100%;
 }
 
 .team.active {
     background: #000;
     color: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.team.finished {
+    background: #ff0000;
+    color: white;
+    opacity: 0.8;
+}
+
+.team.winner {
+    background: #00ff00;
+    color: #000;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 255, 0, 0.4);
+    animation: winnerPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes winnerPulse {
+    0%, 100% { 
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(0, 255, 0, 0.4);
+    }
+    50% { 
+        transform: scale(1.15);
+        box-shadow: 0 8px 25px rgba(0, 255, 0, 0.6);
+    }
 }
 
 .team h3 {
@@ -190,18 +461,36 @@ body {
 
 .btn {
     padding: 0.8rem 2rem;
-    border: 1px solid #000;
+    border: 2px solid #000;
     background: white;
     color: #000;
     font-size: 1rem;
     font-weight: 400;
     cursor: pointer;
     font-family: inherit;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
 }
 
 .btn-primary {
-    background: #000;
-    color: white;
+    background: white;
+    color: #000;
 }
 
 .btn:hover {
@@ -210,76 +499,154 @@ body {
 }
 
 .btn-primary:hover {
-    background: white;
-    color: #000;
+    background: #000;
+    color: white;
 }
 
-.card {
-    background: white;
-    border-radius: 15px;
-    padding: 2rem;
-    margin: 1rem 0;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+.ending-screen {
     text-align: center;
 }
 
-.word {
+.ending-screen h2 {
     font-size: 2.5rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 1.5rem;
-}
-
-.taboo-words {
-    font-size: 1.2rem;
-    color: #e74c3c;
+    font-weight: 300;
     margin-bottom: 2rem;
-    line-height: 1.6;
+    color: #000;
 }
 
-.taboo-words strong {
+.ending-screen h3 {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    color: #000;
+}
+
+.ending-screen p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #000;
+}
+
+#finalScores {
+    margin: 2rem 0;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #000;
+}
+
+#finalScores div {
+    margin-bottom: 0.5rem;
+}
+
+/* Wheel of Fortune styles */
+.puzzle-display {
+    margin: 2rem 0;
+    padding: 2rem;
+    border: 2px solid #000;
+    background: white;
+}
+
+.puzzle-display h2 {
+    font-size: 2rem;
+    font-weight: 300;
+    color: #000;
+    margin: 0;
+    letter-spacing: 0.2em;
+    font-family: 'Courier New', monospace;
+    line-height: 1.4;
+}
+
+.game-layout {
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+}
+
+.left-column {
+    flex: 1;
+}
+
+.right-column {
+    flex: 1;
+}
+
+.wheel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0;
+}
+
+.wheel {
+    width: 300px;
+    height: 300px;
+    border: 4px solid #000;
+    border-radius: 50%;
+    position: relative;
+    margin-bottom: 2rem;
+    transition: transform 2s ease-out;
+    overflow: hidden;
+}
+
+.wheel-segment {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    background: white;
+    border: 2px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: 600;
+    font-size: 1rem;
+    transform-origin: 100% 100%;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
 
-.controls {
+.wheel-segment:nth-child(1) { transform: rotate(0deg); }
+.wheel-segment:nth-child(2) { transform: rotate(45deg); }
+.wheel-segment:nth-child(3) { transform: rotate(90deg); }
+.wheel-segment:nth-child(4) { transform: rotate(135deg); }
+.wheel-segment:nth-child(5) { transform: rotate(180deg); }
+.wheel-segment:nth-child(6) { transform: rotate(225deg); }
+.wheel-segment:nth-child(7) { transform: rotate(270deg); }
+.wheel-segment:nth-child(8) { transform: rotate(315deg); }
+
+.game-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    align-items: flex-start;
+}
+
+.letter-guess, .solve-puzzle {
     display: flex;
     gap: 1rem;
-    justify-content: center;
-    margin-top: 2rem;
+    align-items: center;
 }
 
-.btn {
-    padding: 0.8rem 2rem;
-    border: none;
-    border-radius: 25px;
+.letter-guess input, .solve-puzzle input {
+    padding: 0.8rem 1rem;
+    border: 2px solid #000;
+    background: white;
     font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
+    font-family: inherit;
+    width: 200px;
 }
 
-.btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+.letter-guess input:focus, .solve-puzzle input:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+.team .money {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #000;
 }
 
-.btn-secondary {
-    background: #ecf0f1;
-    color: #2c3e50;
-}
-
-.btn-secondary:hover {
-    background: #d5dbdb;
-    transform: translateY(-1px);
-}
 
 .back-link {
     display: inline-block;
